@@ -1,7 +1,10 @@
 """
-This code demonstrates the real transformation logic used in my multi-strategy trading system for the technical aspect ONLY.
+This snippet code demonstrates the real transformation logic used in my multi-strategy trading system for the technical aspect only.
 It uses mostly uses Pandas and Numpy operations for technical analysis and signal generation.
 This code also runs in airflow everyday
+
+I've built this system that processes tens of thousands of stocks through multiple technical strategies simultaneously, and this is the core logic that makes it work.
+This code shows how I think about data validation, error handling, and creating systems that actually work in the real world, not just in theory.
 
 Note: Database connection details and proprietary calculations have been sanitized.
 """
