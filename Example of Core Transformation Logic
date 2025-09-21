@@ -67,7 +67,7 @@ def calculate_indicators(df: pd.DataFrame, df_wk: pd.DataFrame, stock_list: List
             missing_stocks.append(stock)
             continue
 
-        # ===== Technical Indicators =====
+        # Technical Indicators 
         close = df_filter['Close'].reset_index(drop=True)
         df_mass[f'{stock}_close'] = close
         sma_20 = close.rolling(window=20).mean()
