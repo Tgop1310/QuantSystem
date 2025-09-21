@@ -7,3 +7,6 @@ This system is able to aggregate, clean, and analyze massive, disparate financia
 - **Libraries & Tools:** Pandas, Numpy, SQLAlchemy, BigQuery API, Google Cloud Client library, Google cloud storage, Airflow, Data Source Api
 - **Infrastructure:** Google Cloud Platform (GCS, BigQuery), PostgreSQL, Looker
 - **Version Control:** Git, github
+
+
+<img width="1396" height="527" alt="Screenshot 2025-09-21 211359" src="https://github.com/user-attachments/assets/019eb764-cc1a-49f6-a213-089eac477ea9" />
