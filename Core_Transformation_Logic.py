@@ -1,5 +1,5 @@
 """
-This code demonstrates the real transformation logic used in my multi-strategy trading system for the technical aspect only.
+This code demonstrates the real transformation logic used in my multi-strategy trading system for the technical aspect ONLY.
 It uses mostly uses Pandas and Numpy operations for technical analysis and signal generation.
 This code also runs in airflow everyday
 
