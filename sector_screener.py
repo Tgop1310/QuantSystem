@@ -1,12 +1,21 @@
 """
 This file shows a sanitized snippet of the sector extraction, transform, and loading in the ETL process for portfolio purposes.
+
+This code demonstrates:
+1.  Data extraction from a financial data API.
+2.  Complex multi-layer data transformationusing Pandas.
+3.  Loading processed data into a PostgreSQL database.
+4.  Architecture for moving data from PostgreSQL to Google Cloud Storage (GCS) and BigQuery.
+5.  Running in airflow
+
+Note: Connection strings, credentials, and specific project paths have been replaced with placeholders.
 """
 
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta, date
-import yfinance as yf
+import your_DataSource_api as api
 import pandas as pd
 from sqlalchemy import create_engine
 import io
@@ -19,7 +28,7 @@ from datetime import date, timedelta, datetime
 #Connection string
 username = 'your_username'
 password = 'your_password'
-host = 'host.docker.internal' #since running on airflow container
+host = 'your_ip'
 port = 'your_port'
 database = 'your_database'
 
@@ -35,7 +44,7 @@ def sector_screener_Update():
     df_total_industries_info = pd.DataFrame()
 
     for sector in sector_list:
-        sec = yf.Sector(sector)
+        sec = api.Sector(sector)
         df_top_companies = sec.top_companies.reset_index()
         df_top_companies.drop(columns=['name'], inplace=True)
         df_top_companies.rename(columns={"symbol": f"Top_Companies", "market weight": f"Market_Weight"}, inplace=True)
@@ -57,7 +66,7 @@ def sector_screener_Update():
         df_all_industry_info = pd.DataFrame()
 
         for industry in list_industries:
-            ind = yf.Industry(industry)
+            ind = api.Industry(industry)
   
             try:
                 df_top_companies = ind.top_performing_companies.reset_index()
@@ -80,9 +89,9 @@ def sector_screener_Update():
         name = f"{sector}_Screener.csv"
         output_file = os.path.join(output_folder, name)
         df_all_info.to_csv(os.path.join(output_folder, f"{sector}_Screener.csv"), index=False)
-        df_all_info.to_sql(f"{sector}_Screener", con=engine, if_exists='replace', index=False, schema='stock_db')
+        df_all_info.to_sql(f"{sector}_Screener", con=engine, if_exists='replace', index=False, schema='your_schema')
     
-    df_total_industries_info.to_sql(f"All_Industries_info", con=engine, if_exists='replace', index=False, schema='stock_db')
+    df_total_industries_info.to_sql(f"All_Industries_info", con=engine, if_exists='replace', index=False, schema='your_schema')
 
 
 
@@ -99,9 +108,9 @@ def daily_sector_screener_google_GCS_BigQuery_update():
     for sector in sector_list:
 
         # Configs
-        GCS_BUCKET = "tgop_2"
-        GCS_PATH = f"Screeners/{sector}.csv"
-        BQ_TABLE_ID = f"ornate-bebop-468116-k8.Screeners.{sector}"
+        GCS_BUCKET = "your_bucket_name"
+        GCS_PATH = f"your_folder_name/{sector}.csv"
+        BQ_TABLE_ID = f"your_proj.your_dataset.{sector}"
 
         # Path to service account JSON key
         SERVICE_ACCOUNT_FILE = r"path_to_your_json_key"
@@ -136,7 +145,6 @@ def daily_sector_screener_google_GCS_BigQuery_update():
                 skip_leading_rows=1,
                 autodetect=True,
                 write_disposition="WRITE_TRUNCATE"
-        
             )
             uri = f"gs://{GCS_BUCKET}/{GCS_PATH}"
             load_job = client.load_table_from_uri(uri, BQ_TABLE_ID, job_config=job_config)
