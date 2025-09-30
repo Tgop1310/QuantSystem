@@ -1,5 +1,5 @@
 """
-This snippet code demonstrates the real transformation logic used in my multi-strategy trading system for the technical aspect only.
+This snippet code demonstrates one of the real transformation logic used in my multi-strategy trading system for the technical aspect only.
 It uses mostly uses Pandas and Numpy operations for technical analysis and signal generation.
 This code also runs in airflow everyday
 
