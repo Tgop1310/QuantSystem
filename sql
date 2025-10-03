@@ -34,7 +34,7 @@ LEFT JOIN (
     LEFT JOIN `Stock_Data.All_Data` AS ad
       ON ad.Ticker = asi.Stock
   )
-  WHERE rn = 1  -- Only keep the most recent date per stock
+  WHERE rn = 1  
 ) AS ksi
 
 ON fsl.string_field_0 = ksi.Stock;
