@@ -9,4 +9,4 @@ This system is able to aggregate, clean, and analyze massive, disparate financia
 - **Version Control:** Git, github
 
 ## 🗂️ Project Architecture
-<img width="1591" height="662" alt="Stock Analysis System drawio (1)" src="https://github.com/user-attachments/assets/2abf4da4-65df-4953-a5d6-b323eafedf3b" />
+<img width="1591" height="662" alt="Stock Analysis System drawio (2)" src="https://github.com/user-attachments/assets/1e7dde67-001c-4c9a-a850-b832dffd8ffc" />
