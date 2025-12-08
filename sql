@@ -1,4 +1,20 @@
 """
+Example of SQL in DBT, to search load Ranging Stocks Daily
+"""
+
+{{ config(materialized='table') }}
+
+with vol_stock as (select ticker, avg(close) as ac ,avg(volume) as avg_vol from {{source('SD', 'All_Data') }}
+group by ticker
+having avg_vol > 1000000 and ac > 15),
+rs as (select * from {{source('Screeners', 'range_scanner') }})
+
+select rs.* , vol_stock.ac, vol_stock.avg_vol from vol_stock
+left join rs
+on rs.ticker = vol_stock.ticker
+order by rs.currentstreakdays desc 
+
+"""
 This example query is to identify the latest stocks with the highest volume
 """
 
@@ -8,7 +24,17 @@ on `Stock_Data.All_Data`.Ticker = `Stock_Data.Con_Stock_Info`.Stock
 where industry is not null
 order by date desc, Volume desc
 
+"""
+Example windows function to calculate day over day percent change 
+"""
+WITH grp_stocks AS (SELECT date, ticker, close, LAG(close) OVER (PARTITION BY ticker ORDER BY date asc) AS prev_close 
+FROM `Stock_Data.All_Data`)
 
+SELECT date, ticker, close, prev_close, close - prev_close AS price_change, (close - prev_close) / prev_close AS pct_change
+FROM grp_stocks
+ORDER BY ticker, date desc;
+
+  
 """
 This is an exammple of a windows function sql used to get the latest data per stock
 """
@@ -40,7 +66,7 @@ LEFT JOIN (
 ON fsl.string_field_0 = ksi.Stock;
 
 """
-This is ann example of a CTE to calculate total volume and put call ratio
+This is an example of a CTE to calculate total volume and put call ratio
 """
 
 with sep_volume as (select stock, type, sum(volume) as Volume from `Option_Data.daily_top_volume_option_stream`
@@ -57,6 +83,22 @@ left join pc_ratio
 on pc_ratio.stock = total_vol.stock
 order by total_vol.Total_volume desc
 
+
+
+"""
+Example of using CASE, WHEN to find 3 consecutive days of positive stock gains
+"""
+with t1 as (select date, ticker, open, close,
+case
+  when close > open then 1
+  when close < open then 0
+  else 0
+end as up_down
+from `Stock_Data.All_Data`)
+
+
+select t.date, t.ticker, t.open, t.close, t.up_down, sum(t.up_down) over (partition by t.ticker order by date rows between 2 preceding and current row) as up3_sum from t1 as t
+order by t.ticker, t.date
 
 
 
