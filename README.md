@@ -6,8 +6,9 @@ This system is able to aggregate, clean, and analyze massive, disparate financia
 - **Languages:** Python, SQL, javascript
 - **Libraries & Tools:** Pandas, Numpy, SQLAlchemy, BigQuery API, Google Cloud Client library, Google cloud storage, APIs, Looker Studios, Dbt
 - **Infrastructure:** Google Cloud Platform (GCS, BigQuery), PostgreSQL, Looker
-- **Version Control:** Git, github
 - **Orchestrator:** Airflow(Docker)
+- **Version Control:** Git, github
+
 
 ## 🗂️ Project Architecture
 <img width="1591" height="662" alt="Stock Analysis System drawio (2)" src="https://github.com/user-attachments/assets/1e7dde67-001c-4c9a-a850-b832dffd8ffc" />
