@@ -11,5 +11,4 @@ This system is able to aggregate, clean, and analyze massive, disparate financia
 
 
 ## 🗂️ Project Architecture
-<img width="1591" height="662" alt="Stock Analysis System drawio (2)" src="https://github.com/user-attachments/assets/1e7dde67-001c-4c9a-a850-b832dffd8ffc" />
-
+<img width="1767" height="911" alt="cloud_system_architecture drawio" src="https://github.com/user-attachments/assets/0efb6086-cef7-4ded-88ec-092b450b93d8" />
