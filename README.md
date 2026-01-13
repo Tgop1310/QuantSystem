@@ -4,8 +4,8 @@ This system is able to aggregate, clean, and analyze massive, disparate financia
 
 ## 📊 Tech Stack
 - **Languages:** Python, SQL, javascript
-- **Libraries & Tools:** Pandas, Numpy, SQLAlchemy, BigQuery API, Google Cloud Client library, Google cloud storage, APIs, Looker Studios, Dbt
-- **Infrastructure:** Google Cloud Platform (GCS, BigQuery), PostgreSQL, Looker
+- **Libraries & Tools:** Pandas, Numpy, SQLAlchemy, BigQuery API, Google Cloud Client library, Google cloud storage, Google Cloud Compute Engine APIs, Looker Studios, Dbt, 
+- **Infrastructure:** Google Cloud Platform (GCS, BigQuery, Compute Engine), PostgreSQL, Looker
 - **Orchestrator:** Airflow(Docker)
 - **Version Control:** Git, github
 
