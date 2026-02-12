@@ -1,0 +1,31 @@
+"""
+Example of the dbt dag used // runs staging data models, and data marts
+"""
+
+from airflow import DAG
+from airflow.operators.bash import BashOperator
+from datetime import datetime
+
+default_args = {
+    "owner": "airflow",
+    "start_date": datetime(2025, 1, 1),
+}
+
+with DAG(
+    dag_id="dbt_pipeline",
+    schedule="@daily",
+    catchup=False,
+    default_args=default_args,
+) as dag:
+
+    dbt_run = BashOperator(
+        task_id="dbt_run",
+        bash_command="docker exec dbt dbt run --project-dir /usr/app/kterminal",
+    )
+
+    dbt_test = BashOperator(
+        task_id="dbt_test",
+        bash_command="docker exec dbt dbt test --project-dir /usr/app/kterminal",
+    )
+
+    dbt_run 
