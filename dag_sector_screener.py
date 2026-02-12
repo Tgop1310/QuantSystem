@@ -24,15 +24,11 @@ from google.cloud import storage, bigquery
 from google.oauth2 import service_account
 import numpy as np
 from datetime import date, timedelta, datetime
+from airflow.hooks.base import BaseHook
 
 #Connection string
-username = 'your_username'
-password = 'your_password'
-host = 'your_ip'
-port = 'your_port'
-database = 'your_database'
-
-engine = create_engine(f'postgresql+psycopg2://{username}:{password}@{host}:{port}/{database}')
+c = BaseHook.get_connection("pipeline_postgres")
+engine = create_engine(f"postgresql+psycopg2://{c.login}:{c.password}@{c.host}:{c.port}/{c.schema}")
 
 def sector_screener_Update():
 
